@@ -1,12 +1,26 @@
 import { useParams, Link } from "react-router-dom";
-import products from "../products";
+//import products from "../products";
 import Rating from "../components/Rating";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const ProductScreen = () => {
+  const [product, setProduct] = useState({});
   const { id: productId } = useParams();
-  const product = products.find((p) => p._id === productId);
 
-  if (!product) {
+  //const product = products.find((p) => p._id === productId);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(
+        `http://localhost:3000/api/products/${productId}`
+      );
+      setProduct(data);
+    };
+    fetchProduct();
+  }, [productId]);
+
+  if (!product || Object.keys(product).length === 0) {
     return (
       <h2 className="text-center text-red-600 text-2xl">Product Not Found</h2>
     );
