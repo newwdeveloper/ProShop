@@ -24,12 +24,17 @@ const userSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator: function (passwordValue) {
-          return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-            passwordValue
-          );
+          // Only validate if the password is NOT hashed
+          if (passwordValue.length < 20) {
+            // Assuming bcrypt hash is always longer than 20 chars
+            return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+              passwordValue
+            );
+          }
+          return true; // Skip validation for already hashed passwords
         },
         message:
-          "Password must be at least 8 characters, include 1 uppercase, 1 lowercase, 1 number, and 1 special character",
+          "Password must be at least 8 characters long, contain 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character",
       },
     },
     isAdmin: {
