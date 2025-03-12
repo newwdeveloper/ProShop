@@ -1,12 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 
 import connectDb from "./config/db.js";
 import cors from "cors";
 import ProductRoutes from "./routes/productRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
-
-import dotenv from "dotenv";
-dotenv.config();
 
 connectDb(); //connect to mongodb
 let PORT = process.env.PORT || 5000;
