@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { FaShoppingCart, FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartItems } = useSelector((state) => state.cart);
+  console.log("cart item in header", cartItems);
+
+  // Calculate total quantity of items in cart
+  const cartQuantity = cartItems.reduce((acc, item) => acc + item.qty, 0);
 
   return (
     <div className="navbar bg-black shadow-sm px-4">
@@ -36,9 +42,18 @@ const Header = () => {
       >
         <ul className="menu menu-vertical lg:menu-horizontal lg:flex-row w-full lg:w-auto text-lg space-y-4 lg:space-y-0 text-white">
           <li>
-            <a className="flex items-center gap-2 text-white">
-              <FaShoppingCart /> Cart
-            </a>
+            <Link
+              to="/cart"
+              className="relative flex items-center gap-2 text-white"
+            >
+              <FaShoppingCart />
+              Cart
+              {cartQuantity > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  {cartQuantity}
+                </span>
+              )}
+            </Link>
           </li>
           <li>
             <a className="flex items-center gap-2 text-white">
