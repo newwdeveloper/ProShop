@@ -16,6 +16,7 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const item = action.payload;
       const existingItem = state.cartItems.find((x) => x._id === item._id);
+      console.log("Adding to cart:", item);
       if (existingItem) {
         //If the item is already in the cart, it replaces the old item with the new one.
 
@@ -44,8 +45,15 @@ const cartSlice = createSlice({
         Number(state.taxPrice)
       ).toFixed(2);
 
+      console.log("Updated Prices:", {
+        itemsPrice: state.itemsPrice,
+        shippingPrice: state.shippingPrice,
+        taxPrice: state.taxPrice,
+        totalPrice: state.totalPrice,
+      });
       //store all to localStorage
       localStorage.setItem("cart", JSON.stringify(state));
+      console.log("Updated cart:", JSON.parse(localStorage.getItem("cart")));
     },
   },
 });
