@@ -19,6 +19,7 @@ const ProductScreen = () => {
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
+
   function handleAddToCart() {
     dispatch(addToCart({ ...product, qty }));
     navigate("/cart");
@@ -89,6 +90,7 @@ const ProductScreen = () => {
               }`}
               disabled={product.countInStock === 0}
               onClick={handleAddToCart}
+              title={product.countInStock === 0 ? "Not Available" : ""}
             >
               {product.countInStock > 0 ? "Add to Cart" : "Out of Stock"}
             </button>

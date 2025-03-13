@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import HomeScreen from "./screen/HomeScreen";
 import ProductScreen from "./screen/ProductScreen";
+import CartScreen from "./screen/CartScreen";
 
 const AppLayout = () => {
   return (
@@ -25,6 +26,7 @@ const appRouter = createBrowserRouter([
     children: [
       { element: <HomeScreen />, index: true }, // Nested route
       { path: "product/:id", element: <ProductScreen /> },
+      { path: "/cart", element: <CartScreen /> },
     ],
   },
 ]);
