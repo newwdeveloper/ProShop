@@ -20,7 +20,6 @@ const HomeScreen = () => {
   }, []);*/
   return (
     <div className="container mx-auto px-4">
-      <Message>{error?.data?.message || "Something went wrong!"}</Message>
       {isLoading ? (
         <Loader />
       ) : error ? (
