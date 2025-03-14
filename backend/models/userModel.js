@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
@@ -45,6 +46,18 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  //console.log("Entered password for comparison:", enteredPassword);
+  //console.log("Stored hashed password:", this.password);
+
+  /*if (!enteredPassword) {
+    console.log("ERROR: Entered password is undefined");
+    return false;
+  }*/
+
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;
