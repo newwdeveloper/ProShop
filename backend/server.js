@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-
+import cookieParser from "cookie-parser";
 import connectDb from "./config/db.js";
 import cors from "cors";
 import ProductRoutes from "./routes/productRoutes.js";
@@ -17,7 +17,9 @@ server.use(cors());
 //Body parser Middleware
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+//cookie parser middleware
 
+server.use(cookieParser());
 server.get("/", (req, res) => {
   res.send("getting connected to....");
 });
