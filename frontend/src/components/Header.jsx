@@ -61,9 +61,11 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <a className="flex items-center gap-2 text-white">
-              <FaUser /> SignIn
-            </a>
+            <Link to="/login">
+              <a className="flex items-center gap-2 text-white">
+                <FaUser /> SignIn
+              </a>
+            </Link>
           </li>
         </ul>
       </div>
